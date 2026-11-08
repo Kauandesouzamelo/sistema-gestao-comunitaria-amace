@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Produtos - AMACE</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+    <div class="container py-5">
+
+        <h2>Estoque de Doações</h2>
+
+        <a href="{% url 'cadastrar_produto' %}" class="btn btn-primary my-3">
+            Cadastrar produto
+        </a>
+
+        <a href="{% url 'registrar_movimentacao' %}" class="btn btn-success my-3">
+            Registrar entrada ou saída
+        </a>
+
+        <a href="{% url 'historico_movimentacoes' %}" class="btn btn-dark my-3">
+            Ver histórico
+        </a>
+
+        <a href="{% url 'relatorios' %}" class="btn btn-info my-3">
+            Ver relatórios
+        </a>
+
+        <table class="table table-bordered table-striped bg-white">
+            <thead>
+                <tr>
+                    <th>Produto</th>
+                    <th>Descrição</th>
+                    <th>Unidade</th>
+                    <th>Quantidade</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for produto in produtos %}
+                <tr>
+                    <td>{{ produto.nome }}</td>
+                    <td>{{ produto.descricao|default:"-" }}</td>
+                    <td>{{ produto.unidade_medida }}</td>
+                    <td>{{ produto.quantidade_estoque }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4">Nenhum produto cadastrado.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{% url 'listar_beneficiarios' %}" class="btn btn-secondary">
+            Voltar aos beneficiários
+        </a>
+
+    </div>
+</body>
+
+</html>
