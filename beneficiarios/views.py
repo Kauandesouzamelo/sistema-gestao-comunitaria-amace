@@ -2,7 +2,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Beneficiario
 from .forms import BeneficiarioForm
-from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
 
 
@@ -17,7 +16,7 @@ def listar_beneficiarios(request):
 
 
 @login_required
-@permission_required('beneficiarios.view_beneficiario', raise_exception=True)
+@permission_required('beneficiarios.add_beneficiario', raise_exception=True)
 def cadastrar_beneficiario(request):
 
     if request.method == 'POST':
@@ -36,9 +35,9 @@ def cadastrar_beneficiario(request):
 
 
 @login_required
-@permission_required('beneficiarios.view_beneficiario', raise_exception=True)
+@permission_required('beneficiarios.change_beneficiario', raise_exception=True)
 def editar_beneficiario(request, pk):
-    beneficiario = Beneficiario.objects.get(pk=pk)
+    beneficiario = get_object_or_404(Beneficiario, pk=pk)
 
     if request.method == "POST":
         form = BeneficiarioForm(request.POST, instance=beneficiario)
